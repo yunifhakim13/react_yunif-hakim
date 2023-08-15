@@ -1,5 +1,5 @@
-<!-- Yunif Lukman Hakim -->
-<!--Summary Introduction FE -->
+Yunif Lukman Hakim
+Summary Introduction FE
 
 Front-End Developer bertugas mengubah/mengimpentasikan UI/UX yang sudah siap menuju ke halaman website.
 Terdapat beberapa jalan untuk menjadi Front-End,
