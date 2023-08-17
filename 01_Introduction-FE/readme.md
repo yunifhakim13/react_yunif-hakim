@@ -1,9 +1,13 @@
-Yunif Lukman Hakim<br>
-Summary Introduction FE
+# Resume - Introduction FE
 
-Front-End Developer bertugas mengubah/mengimpentasikan UI/UX yang sudah siap menuju ke halaman website.
-Terdapat beberapa jalan untuk menjadi Front-End,
+## 1. Front End Developer
 
-1. Paham tentang internet karena untuk menguasai bahasa pemrograman membutuhkan pemahaman tentang cara kerja internet.
-2. Bahasa utama yang digunakan adalah HTML,CSS,Javascript. yang dimana HTML digunakan untuk membangun sebuah website dan CSS dan Javascript digunakan untuk mempercantik website tersebut.
-3. Version Control System akan memudahkan kita melakukan dokumentasi dan bekerja secara team.Version Control ( Git, Github). Package manager merupakan tools yang bertujuan untuk memudahkan pengguna dalam pengaturan perangkat lunak, yang biasanya dikenal ada 2 yaitu (npm,yarn)
+merupakan bagian dari website atau aplikasi yang menampilkan tampilan untuk para pengguna. Front end developer adalah orang yang menghubungkan sebuah website atau aplikasi dengan pengguna. Tugas dari web developer adalah mengubah UI atau UX yang sudah siap menuju halaman website. Fokus dari front end developer adalah menghitung setiap komposisi di dalam website atau aplikasi yang dibuat.
+
+## 2. Internet
+
+Internet(Internasional Network) didefinisikan sebagai suatu jaringan komputer yang **sangat besar**, dimana jaringan computer tersebut terdiri dari beberapa jaringan-jaringan kecil yang **saling terhubung.**
+
+## 3. HTML, CSS, Javascript
+
+Front end developer sering bekerja menggunakan HTML, CSS, dan JavaScript untuk mengembangkan situs web atau aplikasi web. Dalam penggunaannya, HTML berperan sebagai kerangka dari website kemudian CSS sebagai kulit atau tampilan pada website dan Javascript sebagai otak dari website yang dibuat.
