@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FormProduct</title>
+  </head>
+  <body>
+    <header>
+      <h1>Create Product</h1>
+      <h2>Detail Product</h2>
+    </header>
+    <div>
+      <form>
+        <div>
+          <p>Product Name :</p>
+          <input type="text" name="productname" />
+          <p>Product Category :</p>
+          <select name="category" id="category">
+            <option value="none">none</option>
+            <option value="Tahu Bulat">Tahu Bulat</option>
+            <option value="Sotong">Sotong</option>
+            <option value="Sambel Welut">Sambel Welut</option>
+          </select>
+        </div>
+        <div>
+          <p>Product Fresnesh :</p>
+          <input type="radio" />
+          <label for="radio">Brand New</label> <br />
+          <input type="radio" />
+          <label for="radio">Second Hank</label> <br />
+          <input type="radio" />
+          <label for="radio">Refurbished</label> <br />
+          <label for="image">Image of Product</label>
+          <input type="file" /> <br />
+        </div>
+        <div>
+          <label>Additional Decription</label> <br />
+          <textarea cols="30" rows="10"></textarea> <br />
+          <label>Product Price :</label> <br />
+          <input
+            style="width: 47px; height: 18px"
+            type="text"
+            placeholder="$100" />
+          <br />
+          <button type="submit">submit</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
