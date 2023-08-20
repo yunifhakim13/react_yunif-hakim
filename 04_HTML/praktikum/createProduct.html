@@ -14,7 +14,7 @@
       <form>
         <div>
           <p>Product Name :</p>
-          <input type="text" name="productname" />
+          <input type="text" minlength="6" maxlength="50" name="productname" />
           <p>Product Category :</p>
           <select name="category" id="category">
             <option value="none">none</option>
@@ -40,7 +40,7 @@
           <label>Product Price :</label> <br />
           <input
             style="width: 47px; height: 18px"
-            type="text"
+            type="number"
             placeholder="$100" />
           <br />
           <button type="submit">submit</button>
