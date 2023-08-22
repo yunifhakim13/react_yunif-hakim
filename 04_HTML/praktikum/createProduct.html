@@ -14,9 +14,14 @@
       <form>
         <div>
           <p>Product Name :</p>
-          <input type="text" minlength="6" maxlength="50" name="productname" />
+          <input
+            type="text"
+            minlength="6"
+            maxlength="50"
+            name="productname"
+            required />
           <p>Product Category :</p>
-          <select name="category" id="category">
+          <select name="category" id="category" required>
             <option value="none">none</option>
             <option value="Tahu Bulat">Tahu Bulat</option>
             <option value="Sotong">Sotong</option>
@@ -24,21 +29,30 @@
           </select>
         </div>
         <div>
-          <p>Product Fresnesh :</p>
-          <input type="radio" />
-          <label for="radio">Brand New</label> <br />
-          <input type="radio" />
-          <label for="radio">Second Hank</label> <br />
-          <input type="radio" />
-          <label for="radio">Refurbished</label> <br />
+          <p>Product Freshness:</p>
+          <input type="radio" name="productFreshness" id="brandNew" required />
+          <label for="brandNew">Brand New</label> <br />
+          <input
+            type="radio"
+            name="productFreshness"
+            id="secondHand"
+            required />
+          <label for="secondHand">Second Hand</label> <br />
+          <input
+            type="radio"
+            name="productFreshness"
+            id="refurbished"
+            required />
+          <label for="refurbished">Refurbished</label> <br />
           <label for="image">Image of Product</label>
-          <input type="file" /> <br />
+          <input type="file" id="image" required /> <br />
         </div>
         <div>
           <label>Additional Decription</label> <br />
           <textarea cols="30" rows="10"></textarea> <br />
           <label>Product Price :</label> <br />
           <input
+            required
             style="width: 47px; height: 18px"
             type="number"
             placeholder="$100" />
