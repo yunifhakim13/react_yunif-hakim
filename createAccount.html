@@ -62,7 +62,7 @@
         </p>
       </div>
       <div class="container">
-        <form class="needs-validation" novalidate>
+        <form id=formBio class="needs-validation" novalidate>
           <p>Detail Form</p>
           <div class="row">
             <div class="col">
@@ -269,7 +269,55 @@
             <th scope="col">Language</th>
           </tr>
         </thead>
-        <tbody id="accountTableBody">
+        <tbody>
+          <tr>
+            <th scope="row">1,001</th>
+            <td>Lorem</td>
+            <td>ipsum</td>
+            <td>dolor</td>
+            <td>sit</td>
+            <td>adipiscing</td>
+            <td>elit</td>
+            <td>elit 2</td>
+            <td>Indonesia</td>
+            <td>Bahasa</td>
+          </tr>
+          <tr>
+            <th scope="row">1,002</th>
+            <td>Lorem</td>
+            <td>ipsum</td>
+            <td>dolor</td>
+            <td>sit</td>
+            <td>adipiscing</td>
+            <td>elit</td>
+            <td>elit 2</td>
+            <td>Indonesia</td>
+            <td>Bahasa</td>
+          </tr>
+          <tr>
+            <th scope="row">1,003</th>
+            <td>Lorem</td>
+            <td>ipsum</td>
+            <td>dolor</td>
+            <td>sit</td>
+            <td>adipiscing</td>
+            <td>elit</td>
+            <td>elit 2</td>
+            <td>Indonesia</td>
+            <td>Bahasa</td>
+          </tr>
+          <tr>
+            <th scope="row">1,004</th>
+            <td>Lorem</td>
+            <td>ipsum</td>
+            <td>dolor</td>
+            <td>sit</td>
+            <td>adipiscing</td>
+            <td>elit</td>
+            <td>elit 2</td>
+            <td>Indonesia</td>
+            <td>Bahasa</td>
+          </tr>
         </tbody>
       </table>
 
@@ -279,6 +327,7 @@
         <button type="button" class="btn btn-primary" >Delection</button>
         <button type="button" class="btn btn-outline-primary">Search</button>
     </section>
+    <script src="account.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -291,26 +340,5 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"></script>
-      <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-            (() => {
-              'use strict'
-
-              // Fetch all the forms we want to apply custom Bootstrap validation styles to
-              const forms = document.querySelectorAll('.needs-validation')
-
-              // Loop over them and prevent submission
-              Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                  if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                  }
-
-                  form.classList.add('was-validated')
-                }, false)
-              })
-            })()
-      </script>
   </body>
 </html>
