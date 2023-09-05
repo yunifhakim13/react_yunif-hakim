@@ -23,7 +23,7 @@ document
     const productForm = document.getElementById("productForm");
     const hasilTable = document.querySelector("table tbody");
 
-    // variabel yang berisi symbol
+    // select variabel yang berisi symbol
     const regex = /^[^@#{}]*$/;
 
     // melakukan validasi input productName & productPrice tidak boleh kosong
