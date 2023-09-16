@@ -3,8 +3,44 @@ import "./App.css";
 import InputWithLabel from "./Components/InputWithLabel";
 import InputRadio from "./Components/InputRadio";
 import BsLogo from "./assets/bootstrap-logo.svg.png";
+import { article } from "./article";
+import { useState } from "react";
 
 export default function App() {
+  const handleClick = () => {
+    const randomNumber = Math.floor(Math.random() * 100);
+    console.log("Random Number:", randomNumber);
+  };
+
+  const [productName, setProductName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleProductNameChange = (e) => {
+    const value = e.target.value;
+
+    if (value.length > 25) {
+      setErrorMessage("Product Name must not exceed 25 characters.");
+    } else if (value.length > 10) {
+      setErrorMessage("Product Name must not exceed 10 characters.");
+    } else if (value.trim() === "") {
+      setErrorMessage("Please enter a valid product name.");
+    } else {
+      setErrorMessage("");
+    }
+
+    setProductName(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Untuk menghindari pembaruan halaman
+
+    if (errorMessage === "") {
+      console.log("Product Name:", productName);
+      setProductName("");
+    } else {
+      alert("Please fix the errors before submitting.");
+    }
+  };
   return (
     <>
       <Navigation />
@@ -24,19 +60,15 @@ export default function App() {
                 alt="img-bootstrap"
               />
               <div className="mt-3">
-                <p className="text-center">
-                  Below is an example form built entirely with Bootstrap's form
-                  controls. Each required form group has a validation state that
-                  can be triggered by attempting to submit the form without
-                  completing it.
-                </p>
+                <h1 className="text-center">{article.title.en}</h1>
+                <p className="text-center">{article.description.en}</p>
                 <br />
                 <br />
                 <div className="row">
                   <div className="col-md-2"></div>
                   <div className="col-md-8">
                     <h3>Detail Product</h3>
-                    <form id="productForm">
+                    <form id="productForm" onSubmit={handleSubmit}>
                       <InputWithLabel
                         labelClass={"form-label"}
                         labelFor={"productname"}
@@ -45,7 +77,11 @@ export default function App() {
                         inputClassName={"form-control"}
                         inputType={"text"}
                         ariaLabel={"default input example"}
+                        onChange={handleProductNameChange}
                       />
+                      {errorMessage && (
+                        <p style={{ color: "red" }}>{errorMessage}</p>
+                      )}
 
                       <div className="mb-3 col-md-5">
                         <label for="productcategory" className="form-label">
@@ -118,6 +154,13 @@ export default function App() {
                         Submit
                       </button>
                     </form>
+                    <button
+                      onClick={handleClick}
+                      type="submit"
+                      className="btn btn-primary"
+                      style={{ marginTop: "100px" }}>
+                      generate random number
+                    </button>
                   </div>
                   <div className="col-md-3"></div>
                 </div>
