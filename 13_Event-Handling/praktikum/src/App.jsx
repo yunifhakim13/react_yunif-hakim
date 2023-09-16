@@ -148,6 +148,7 @@ export default function App() {
                         placehholder={"$ 1"}
                       />
                       <button
+                        onClick={handleSubmit}
                         type="submit"
                         className="btn btn-primary"
                         style={{ marginTop: "100px" }}>
