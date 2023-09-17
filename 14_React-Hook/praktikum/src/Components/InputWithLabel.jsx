@@ -8,6 +8,7 @@ function InputWithLabel({
   ariaLabel,
   placehholder,
   onChange,
+  inputValue,
 }) {
   return (
     <div className="mb-3 col-md-8">
@@ -21,6 +22,7 @@ function InputWithLabel({
         aria-label={ariaLabel}
         placeholder={placehholder}
         onChange={onChange}
+        value={inputValue}
       />
     </div>
   );
