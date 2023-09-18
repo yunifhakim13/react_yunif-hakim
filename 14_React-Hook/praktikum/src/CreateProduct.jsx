@@ -15,6 +15,7 @@ export default function CreateProduct() {
   const [productData, setProductData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [uniqueId, setUniqueId] = useState(1);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(null);
 
   const handleClick = () => {
     const randomNumber = Math.floor(Math.random() * 100);
@@ -35,6 +36,27 @@ export default function CreateProduct() {
     }
 
     setProductName(value);
+  };
+
+  const handleDelete = (id) => {
+    const updatedProductData = productData.filter(
+      (product) => product.id !== id
+    );
+    setProductData(updatedProductData);
+  };
+
+  const handleDeleteConfirm = () => {
+    const updatedProductData = productData.filter(
+      (product) => product.id !== deleteConfirmation
+    );
+    setProductData(updatedProductData);
+    console.log(updatedProductData);
+
+    setDeleteConfirmation(null);
+  };
+
+  const handleDeleteCancel = () => {
+    setDeleteConfirmation(null);
   };
 
   const handleProductCategoryChange = (e) => {
@@ -83,6 +105,7 @@ export default function CreateProduct() {
     setUniqueId(uniqueId + 1);
   }, [productData]);
 
+  console.log(productData);
   return (
     <>
       <Navigation />
@@ -131,7 +154,7 @@ export default function CreateProduct() {
                         </label>
                         <select
                           id="productSelect"
-                          class="form-select"
+                          className="form-select"
                           onChange={handleProductCategoryChange}>
                           <option value="">Choose</option>
                           <option value="Kasur">Kasur</option>
@@ -139,7 +162,7 @@ export default function CreateProduct() {
                         </select>
                       </div>
                       <div className="mb-3  col-md-5">
-                        <label for="image" class="form-label pimary">
+                        <label for="image" className="form-label pimary">
                           Image of Product
                         </label>
                         <input
@@ -149,7 +172,7 @@ export default function CreateProduct() {
                         />
                       </div>
                       <div className="mb-3">
-                        <label for="freshness" class="form-label">
+                        <label for="freshness" className="form-label">
                           Product Freshness
                         </label>
                         <InputRadio
@@ -174,14 +197,14 @@ export default function CreateProduct() {
                           onChange={() => handleOptionChange("Refurbished")}
                         />
                       </div>
-                      <div class="mb-2">
+                      <div className="mb-2">
                         <label
                           for="exampleFormControlTextarea1"
                           className="form-label">
                           Additional Description
                         </label>
                       </div>
-                      <div class="form-floating mb-2">
+                      <div className="form-floating mb-2">
                         <textarea
                           className="form-control"
                           placeholder="Leave a comment here"
@@ -234,6 +257,7 @@ export default function CreateProduct() {
               <th scope="col">Product Freshness</th>
               {/* <th scope="col">Additional Desciption</th> */}
               <th scope="col">Product Price</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -244,10 +268,33 @@ export default function CreateProduct() {
                 <td>{product.productCategory}</td>
                 <td>{product.productFreshness}</td>
                 <td>{product.productPrice}</td>
+                <td>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDelete(product.id)}>
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        {deleteConfirmation !== null && (
+          <div className="modal">
+            <div className="modal-content">
+              <p>Apakah Anda yakin ingin menghapus produk ini?</p>
+              <button className="btn btn-danger" onClick={handleDeleteConfirm}>
+                Ya
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={handleDeleteCancel}>
+                Tidak
+              </button>
+            </div>
+          </div>
+        )}
 
         <input
           className="form-control"

@@ -1,8 +1,8 @@
 export const article = {
   title: {
-    id: "Buat Akun",
+    id: "Buat Produk",
 
-    en: "Create Account",
+    en: "Create Product",
   },
 
   description: {
