@@ -14,8 +14,8 @@ export default function CreateProduct() {
   const [productPrice, setProductPrice] = useState("");
   const [productData, setProductData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [uniqueId, setUniqueId] = useState(1);
-  const [deleteConfirmation, setDeleteConfirmation] = useState(null);
+  const [deleteItemId, setDeleteItemId] = useState(null);
+  const [articleLanguage, setArticleLanguage] = useState("en");
 
   const handleClick = () => {
     const randomNumber = Math.floor(Math.random() * 100);
@@ -42,21 +42,9 @@ export default function CreateProduct() {
     const updatedProductData = productData.filter(
       (product) => product.id !== id
     );
-    setProductData(updatedProductData);
-  };
-
-  const handleDeleteConfirm = () => {
-    const updatedProductData = productData.filter(
-      (product) => product.id !== deleteConfirmation
-    );
-    setProductData(updatedProductData);
     console.log(updatedProductData);
-
-    setDeleteConfirmation(null);
-  };
-
-  const handleDeleteCancel = () => {
-    setDeleteConfirmation(null);
+    console.log(id);
+    setProductData(updatedProductData);
   };
 
   const handleProductCategoryChange = (e) => {
@@ -102,10 +90,13 @@ export default function CreateProduct() {
   };
 
   useEffect(() => {
-    setUniqueId(uniqueId + 1);
+    console.log(productData);
   }, [productData]);
 
-  console.log(productData);
+  const handleArticle = () => {
+    setArticleLanguage(articleLanguage === "en" ? "id" : "en");
+  };
+
   return (
     <>
       <Navigation />
@@ -124,9 +115,20 @@ export default function CreateProduct() {
                 src={BsLogo}
                 alt="img-bootstrap"
               />
+              <button
+                type="submit"
+                label={`Language: ${articleLanguage}`}
+                className="btn btn-outline-dark mx-auto"
+                onClick={handleArticle}>
+                Toggle Language
+              </button>
               <div className="mt-3">
-                <h1 className="text-center">{article.title.en}</h1>
-                <p className="text-center">{article.description.en}</p>
+                <h1 className="text-center">
+                  {article.title[articleLanguage]}
+                </h1>
+                <p className="text-center">
+                  {article.description[articleLanguage]}
+                </p>
                 <br />
                 <br />
                 <div className="row">
@@ -262,40 +264,67 @@ export default function CreateProduct() {
           </thead>
           <tbody>
             {productData.map((product, index) => (
-              <tr key={product.id}>
-                <th scope="row">{uniqueId + index}</th>
-                <td>{product.productName}</td>
-                <td>{product.productCategory}</td>
-                <td>{product.productFreshness}</td>
-                <td>{product.productPrice}</td>
-                <td>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDelete(product.id)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
+              <>
+                <tr key={product.id}>
+                  <th scope="row">{product.id}</th>
+                  <td>{product.productName}</td>
+                  <td>{product.productCategory}</td>
+                  <td>{product.productFreshness}</td>
+                  <td>{product.productPrice}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      onClick={() => setDeleteItemId(product.id)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </>
             ))}
           </tbody>
         </table>
-
-        {deleteConfirmation !== null && (
-          <div className="modal">
-            <div className="modal-content">
-              <p>Apakah Anda yakin ingin menghapus produk ini?</p>
-              <button className="btn btn-danger" onClick={handleDeleteConfirm}>
-                Ya
-              </button>
-              <button
-                className="btn btn-secondary"
-                onClick={handleDeleteCancel}>
-                Tidak
-              </button>
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Hapus Produk
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Apakah Anda yakin ingin menghapus produk ini?
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal">
+                  Close
+                </button>
+                <button
+                  onClick={() => handleDelete(deleteItemId)}
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal">
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
-        )}
-
+        </div>
         <input
           className="form-control"
           type="text"
