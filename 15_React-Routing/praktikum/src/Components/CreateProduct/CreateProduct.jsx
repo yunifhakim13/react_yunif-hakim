@@ -6,7 +6,7 @@ import BsLogo from "./assets/bootstrap-logo.svg.png";
 import { article } from "./Header/article/article";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import DetailProduct from "./DetailProduct";
 
 export default function CreateProduct() {
@@ -91,6 +91,17 @@ export default function CreateProduct() {
       alert("Please fix the errors before submitting.");
     }
   };
+
+  useEffect(() => {
+    const storedProductData = JSON.parse(localStorage.getItem("productData"));
+    if (storedProductData) {
+      setProductData(storedProductData);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("productData", JSON.stringify(productData));
+  }, [productData]);
 
   useEffect(() => {
     console.log(productData);
@@ -194,6 +205,7 @@ export default function CreateProduct() {
                           radioText={"Brand New"}
                           checked={productFreshness === "Brand New"}
                           onChange={() => handleOptionChange("Brand New")}
+                          defaultValue="Brand New"
                         />
                         <InputRadio
                           radioFor={"flexRadioDefault2"}
@@ -201,6 +213,7 @@ export default function CreateProduct() {
                           radioText={"Second Hand"}
                           checked={productFreshness === "Second Hand"}
                           onChange={() => handleOptionChange("Second Hand")}
+                          defaultValue="Second Hand"
                         />
                         <InputRadio
                           radioFor={"flexRadioDefault3"}
@@ -208,6 +221,7 @@ export default function CreateProduct() {
                           radioText={"Refurbished"}
                           checked={productFreshness === "Refurbished"}
                           onChange={() => handleOptionChange("Refurbished")}
+                          defaultValue="Refurbished"
                         />
                       </div>
                       <div className="mb-2">
@@ -277,7 +291,9 @@ export default function CreateProduct() {
             {productData.map((product, index) => (
               <>
                 <tr key={product.id}>
-                  <th scope="row">{product.id}</th>
+                  <th scope="row">
+                    <Link to={`/Detail/${product.id}`}>{product.id}</Link>
+                  </th>
                   <td>{product.productName}</td>
                   <td>{product.productCategory}</td>
                   <td>{product.productFreshness}</td>
