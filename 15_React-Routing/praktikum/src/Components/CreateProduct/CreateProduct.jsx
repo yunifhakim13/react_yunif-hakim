@@ -7,7 +7,6 @@ import { article } from "./Header/article/article";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useParams } from "react-router-dom";
-// import DetailProduct from "./DetailProduct";
 
 export default function CreateProduct() {
   const [productName, setProductName] = useState("");
@@ -18,7 +17,10 @@ export default function CreateProduct() {
   const [errorMessage, setErrorMessage] = useState("");
   const [deleteItemId, setDeleteItemId] = useState(null);
   const [articleLanguage, setArticleLanguage] = useState("en");
-  const [products, setProducts] = useState([]);
+  const [productImage, setProductImage] = useState("");
+  const productNameRegex = /^[A-Za-z0-9\s]{1,25}$/;
+  const productPriceRegex = /^[0-9]+(\.[0-9]{1,2})?$/;
+  const [imageError, setImageError] = useState("");
 
   const handleClick = () => {
     const randomNumber = Math.floor(Math.random() * 100);
@@ -34,6 +36,8 @@ export default function CreateProduct() {
       setErrorMessage("Product Name must not exceed 10 characters.");
     } else if (value.trim() === "") {
       setErrorMessage("Please enter a valid product name.");
+    } else if (!productNameRegex.test(value)) {
+      setErrorMessage("Do not enter symbols or special characters.");
     } else {
       setErrorMessage("");
     }
@@ -51,7 +55,15 @@ export default function CreateProduct() {
   };
 
   const handleProductCategoryChange = (e) => {
-    setProductCategory(e.target.value);
+    const value = e.target.value;
+
+    if (!value) {
+      setErrorMessage("Please select a product category.");
+    } else {
+      setErrorMessage("");
+    }
+
+    setProductCategory(value);
   };
 
   const [selectedOption, setSelectedOption] = useState("Brand New");
@@ -61,7 +73,15 @@ export default function CreateProduct() {
   };
 
   const handleProductPriceChange = (e) => {
-    setProductPrice(e.target.value);
+    const value = e.target.value;
+
+    if (!productPriceRegex.test(value)) {
+      setErrorMessage("Please enter a valid product price.");
+    } else {
+      setErrorMessage("");
+    }
+
+    setProductPrice(value);
   };
 
   const handleSubmit = (e) => {
@@ -79,6 +99,7 @@ export default function CreateProduct() {
         productCategory: productCategory,
         productFreshness: productFreshness,
         productPrice: productPrice,
+        productImage: productImage,
       };
 
       setProductData([...productData, newProduct]);
@@ -87,6 +108,7 @@ export default function CreateProduct() {
       setProductCategory("");
       setProductFreshness("");
       setProductPrice("");
+      setProductImage("");
     } else {
       alert("Please fix the errors before submitting.");
     }
@@ -109,6 +131,38 @@ export default function CreateProduct() {
 
   const handleArticle = () => {
     setArticleLanguage(articleLanguage === "en" ? "id" : "en");
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    // Periksa apakah file gambar telah dipilih
+    if (!file) {
+      setImageError("Please select an image.");
+      return;
+    }
+
+    // Periksa tipe file gambar (contoh: hanya menerima JPEG dan PNG)
+    const allowedTypes = ["image/jpeg", "image/png"];
+    if (!allowedTypes.includes(file.type)) {
+      setImageError("Please select a JPEG or PNG image.");
+      return;
+    }
+
+    // Periksa ukuran file gambar (contoh: maksimum 2MB)
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    if (file.size > maxSize) {
+      setImageError("Image size exceeds 2MB. Please select a smaller image.");
+      return;
+    }
+
+    // Jika validasi berhasil, hapus pesan kesalahan dan simpan URL gambar
+    setImageError("");
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setProductImage(e.target.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -161,7 +215,7 @@ export default function CreateProduct() {
                       <InputWithLabel
                         labelClass={"form-label"}
                         labelFor={"productname"}
-                        labelText={"Product name"}
+                        labelText={"Product Name"}
                         inputId={"productName"}
                         inputClassName={"form-control"}
                         inputType={"text"}
@@ -185,16 +239,21 @@ export default function CreateProduct() {
                           <option value="Bantal">Bantal</option>
                         </select>
                       </div>
-                      <div className="mb-3  col-md-5">
-                        <label for="image" className="form-label pimary">
+                      <div className="mb-3 col-md-5">
+                        <label for="image" className="form-label primary">
                           Image of Product
                         </label>
                         <input
                           className="form-control"
                           type="file"
                           id="formFile"
+                          onChange={handleImageChange}
                         />
+                        {imageError && (
+                          <p style={{ color: "red" }}>{imageError}</p>
+                        )}
                       </div>
+
                       <div className="mb-3">
                         <label for="freshness" className="form-label">
                           Product Freshness
@@ -280,7 +339,7 @@ export default function CreateProduct() {
               <th scope="col">No</th>
               <th scope="col">Product Name</th>
               <th scope="col">Product Category </th>
-              {/* <th scope="col">Image of Product</th> */}
+              <th scope="col">Image of Product</th>
               <th scope="col">Product Freshness</th>
               {/* <th scope="col">Additional Desciption</th> */}
               <th scope="col">Product Price</th>
@@ -296,6 +355,13 @@ export default function CreateProduct() {
                   </th>
                   <td>{product.productName}</td>
                   <td>{product.productCategory}</td>
+                  <td>
+                    <img
+                      src={product.productImage}
+                      alt={product.productName}
+                      width="100"
+                    />
+                  </td>
                   <td>{product.productFreshness}</td>
                   <td>{product.productPrice}</td>
                   <td>
