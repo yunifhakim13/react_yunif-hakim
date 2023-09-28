@@ -1,17 +1,17 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import CreateProduct from "./Components/CreateProduct/CreateProduct.jsx";
-import LandingPage from "./Components/LandingPage/LandingPage.jsx";
+import "./App.css";
+import CreateProduct from "./component/CreateProduct/CreateProduct";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import LandingPage from "./component/LandingPage/LandingPage";
 
-const App = () => {
+function App() {
   return (
-    <Router history={history}>
-      <Switch>
+    <>
+      <Router>
         <Route exact path="/" component={CreateProduct} />
         <Route path="/LandingPage" component={LandingPage} />
-      </Switch>
-    </Router>
+      </Router>
+    </>
   );
-};
+}
 
 export default App;

@@ -1,19 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import LandingPage from "./Components/LandingPage/LandingPage.jsx";
-import CreateProduct from "./Components/CreateProduct/CreateProduct.jsx";
-import {
-  BrowserRouter as Router,
-  Route,
-  BrowserRouter,
-  Link,
-} from "react-router-dom";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
     <App />
-    {/* <CreateProduct /> */}
-    {/* <LandingPage /> */}
-  </BrowserRouter>
-);
+  </React.StrictMode>,
+)
