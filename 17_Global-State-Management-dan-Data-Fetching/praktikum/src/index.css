@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+
+#customNav {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand {
+  font-size: 24px;
+}
+
+.nav-link {
+  margin: 0px 8px;
+  color: #0d6efd;
+}
+
+/* h1 {
+  font-family: "Roboto", sans-serif;
+  font-size: 31px;
+  margin-top: 23px;
+} */
+
+/* p {
+  max-width: 920px;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: #212529;
+} */
+
+.name {
+  width: 282px;
+  height: 36px;
+}
+
+#Myform {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+#submitBtn {
+  padding: 9px 210px;
+  margin-top: 63px;
+}
