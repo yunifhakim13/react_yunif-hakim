@@ -392,7 +392,9 @@ export default function CreateProduct() {
                     />
                   </td>
                   <td>
-                    <button onClick={handleUpdate}>update</button>
+                    <button className="btn btn-warning" onClick={handleUpdate}>
+                      update
+                    </button>
                   </td>
                 </tr>
               ) : (
