@@ -7,12 +7,6 @@ import { article } from "./Header/article/article";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addProduct,
-  deleteProduct,
-  editProduct,
-} from "../../redux/slices/productSlices";
 
 export default function CreateProduct() {
   const [productName, setProductName] = useState("");
@@ -27,10 +21,6 @@ export default function CreateProduct() {
   const productNameRegex = /^[A-Za-z0-9\s]{1,25}$/;
   const productPriceRegex = /^[0-9]+(\.[0-9]{1,2})?$/;
   const [imageError, setImageError] = useState("");
-  const [edit, setEdit] = useState("");
-  const data = useSelector((state) => state.products);
-  console.log(data);
-  const dispatch = useDispatch();
 
   const handleClick = () => {
     const randomNumber = Math.floor(Math.random() * 100);
@@ -56,7 +46,12 @@ export default function CreateProduct() {
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteProduct(id));
+    const updatedProductData = productData.filter(
+      (product) => product.id !== id
+    );
+    console.log(updatedProductData);
+    console.log(id);
+    setProductData(updatedProductData);
   };
 
   const handleProductCategoryChange = (e) => {
@@ -64,14 +59,17 @@ export default function CreateProduct() {
 
     if (!value) {
       setErrorMessage("Please select a product category.");
+    } else {
+      setErrorMessage("");
     }
 
     setProductCategory(value);
   };
 
+  const [selectedOption, setSelectedOption] = useState("Brand New");
+
   const handleOptionChange = (e) => {
-    console.log(e.target.value);
-    setProductFreshness(e.target.value);
+    setSelectedOption(e.target.value);
   };
 
   const handleProductPriceChange = (e) => {
@@ -86,37 +84,25 @@ export default function CreateProduct() {
     setProductPrice(value);
   };
 
-  const handleEdit = (id) => {
-    setEdit(id);
-  };
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    setEdit("");
-    dispatch(
-      editProduct({
-        id: edit,
-        productName: productName,
-        productPrice: productPrice,
-      })
-    );
-  };
-
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Untuk menghindari pembaruan halaman
 
     if (errorMessage === "") {
+      console.log("Product Name:", productName);
       setProductName("");
 
-      dispatch(
-        addProduct({
-          productName: productName,
-          productCategory: productCategory,
-          productFreshness: productFreshness,
-          productPrice: productPrice,
-          productImage: productImage,
-        })
-      );
+      const time = new Date().getTime();
+      const id = uuidv4();
+      const newProduct = {
+        id: id,
+        productName: productName,
+        productCategory: productCategory,
+        productFreshness: productFreshness,
+        productPrice: productPrice,
+        productImage: productImage,
+      };
+
+      setProductData([...productData, newProduct]);
 
       setProductName("");
       setProductCategory("");
@@ -150,23 +136,27 @@ export default function CreateProduct() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
+    // Periksa apakah file gambar telah dipilih
     if (!file) {
       setImageError("Please select an image.");
       return;
     }
 
+    // Periksa tipe file gambar (contoh: hanya menerima JPEG dan PNG)
     const allowedTypes = ["image/jpeg", "image/png"];
     if (!allowedTypes.includes(file.type)) {
       setImageError("Please select a JPEG or PNG image.");
       return;
     }
 
-    const maxSize = 2 * 1024 * 1024;
+    // Periksa ukuran file gambar (contoh: maksimum 2MB)
+    const maxSize = 2 * 1024 * 1024; // 2MB
     if (file.size > maxSize) {
       setImageError("Image size exceeds 2MB. Please select a smaller image.");
       return;
     }
 
+    // Jika validasi berhasil, hapus pesan kesalahan dan simpan URL gambar
     setImageError("");
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -221,10 +211,10 @@ export default function CreateProduct() {
                   <div className="col-md-2"></div>
                   <div className="col-md-8">
                     <h3>Detail Product</h3>
-                    <form id="productForm" onSubmit={handleSubmit}>
+                    <form data-testid="productForm" onSubmit={handleSubmit}>
                       <InputWithLabel
                         labelClass={"form-label"}
-                        labelFor={"productname"}
+                        labelFor={"productName"}
                         labelText={"Product Name"}
                         inputId={"productName"}
                         inputClassName={"form-control"}
@@ -232,9 +222,9 @@ export default function CreateProduct() {
                         ariaLabel={"default input example"}
                         onChange={handleProductNameChange}
                       />
-                      {errorMessage ? (
+                      {errorMessage && (
                         <p style={{ color: "red" }}>{errorMessage}</p>
-                      ) : null}
+                      )}
 
                       <div className="mb-3 col-md-5">
                         <label for="productcategory" className="form-label">
@@ -243,7 +233,8 @@ export default function CreateProduct() {
                         <select
                           id="productSelect"
                           className="form-select"
-                          onChange={handleProductCategoryChange}>
+                          onChange={handleProductCategoryChange}
+                          data-testId="productSelect">
                           <option value="">Choose</option>
                           <option value="Kasur">Kasur</option>
                           <option value="Bantal">Bantal</option>
@@ -265,37 +256,34 @@ export default function CreateProduct() {
                       </div>
 
                       <div className="mb-3">
-                        <label
-                          htmlFor="productFreshness"
-                          className="form-label">
+                        <label for="freshness" className="form-label">
                           Product Freshness
                         </label>
                         <InputRadio
-                          name="productFreshness"
-                          defaultValue="Brand New"
                           radioFor={"flexRadioDefault1"}
                           radioValue={"Brand New"}
                           radioText={"Brand New"}
                           checked={productFreshness === "Brand New"}
-                          onChange={handleOptionChange}
+                          onChange={() => handleOptionChange("Brand New")}
+                          defaultValue="Brand New"
+                          labelText="Brand New"
+                          ariaLabel={"default input example"}
                         />
                         <InputRadio
-                          name="productFreshness"
-                          defaultValue="Second Hand"
                           radioFor={"flexRadioDefault2"}
                           radioValue={"Second Hand"}
                           radioText={"Second Hand"}
                           checked={productFreshness === "Second Hand"}
-                          onChange={handleOptionChange}
+                          onChange={() => handleOptionChange("Second Hand")}
+                          defaultValue="Second Hand"
                         />
                         <InputRadio
-                          name="productFreshness"
-                          defaultValue="Refurbished"
                           radioFor={"flexRadioDefault3"}
                           radioValue={"Refurbished"}
                           radioText={"Refurbished"}
                           checked={productFreshness === "Refurbished"}
-                          onChange={handleOptionChange}
+                          onChange={() => handleOptionChange("Refurbished")}
+                          defaultValue="Refurbished"
                         />
                       </div>
                       <div className="mb-2">
@@ -362,19 +350,13 @@ export default function CreateProduct() {
             </tr>
           </thead>
           <tbody>
-            {data.map((product, index) =>
-              product.id === edit ? (
-                <tr>
+            {productData.map((product, index) => (
+              <>
+                <tr key={product.id}>
                   <th scope="row">
                     <Link to={`/Detail/${product.id}`}>{product.id}</Link>
                   </th>
-                  <td>
-                    <input
-                      type="text"
-                      value={product.productName}
-                      onChange={(e) => setProductName(e.target.value)}
-                    />
-                  </td>
+                  <td>{product.productName}</td>
                   <td>{product.productCategory}</td>
                   <td>
                     <img
@@ -384,55 +366,20 @@ export default function CreateProduct() {
                     />
                   </td>
                   <td>{product.productFreshness}</td>
+                  <td>{product.productPrice}</td>
                   <td>
-                    <input
-                      type="number"
-                      value={product.productPrice}
-                      onChange={(e) => setProductPrice(e.target.value)}
-                    />
-                  </td>
-                  <td>
-                    <button className="btn btn-warning" onClick={handleUpdate}>
-                      update
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      onClick={() => setDeleteItemId(product.id)}>
+                      Delete
                     </button>
                   </td>
                 </tr>
-              ) : (
-                <>
-                  <tr key={product.id}>
-                    <th scope="row">
-                      <Link to={`/Detail/${product.id}`}>{product.id}</Link>
-                    </th>
-                    <td>{product.productName}</td>
-                    <td>{product.productCategory}</td>
-                    <td>
-                      <img
-                        src={product.productImage}
-                        alt={product.productName}
-                        width="100"
-                      />
-                    </td>
-                    <td>{product.productFreshness}</td>
-                    <td>{product.productPrice}</td>
-                    <td>
-                      <button
-                        className="btn btn-success me-1"
-                        onClick={() => handleEdit(product.id)}>
-                        Edit
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-danger"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        onClick={() => setDeleteItemId(product.id)}>
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                </>
-              )
-            )}
+              </>
+            ))}
           </tbody>
         </table>
         <div
@@ -445,7 +392,7 @@ export default function CreateProduct() {
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
-                  Delete Product
+                  Hapus Produk
                 </h1>
                 <button
                   type="button"
