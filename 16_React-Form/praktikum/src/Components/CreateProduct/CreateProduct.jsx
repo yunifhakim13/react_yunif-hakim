@@ -211,10 +211,10 @@ export default function CreateProduct() {
                   <div className="col-md-2"></div>
                   <div className="col-md-8">
                     <h3>Detail Product</h3>
-                    <form id="productForm" onSubmit={handleSubmit}>
+                    <form data-testid="productForm" onSubmit={handleSubmit}>
                       <InputWithLabel
                         labelClass={"form-label"}
-                        labelFor={"productname"}
+                        labelFor={"productName"}
                         labelText={"Product Name"}
                         inputId={"productName"}
                         inputClassName={"form-control"}
@@ -233,7 +233,8 @@ export default function CreateProduct() {
                         <select
                           id="productSelect"
                           className="form-select"
-                          onChange={handleProductCategoryChange}>
+                          onChange={handleProductCategoryChange}
+                          data-testId="productSelect">
                           <option value="">Choose</option>
                           <option value="Kasur">Kasur</option>
                           <option value="Bantal">Bantal</option>
@@ -265,6 +266,8 @@ export default function CreateProduct() {
                           checked={productFreshness === "Brand New"}
                           onChange={() => handleOptionChange("Brand New")}
                           defaultValue="Brand New"
+                          labelText="Brand New"
+                          ariaLabel={"default input example"}
                         />
                         <InputRadio
                           radioFor={"flexRadioDefault2"}
