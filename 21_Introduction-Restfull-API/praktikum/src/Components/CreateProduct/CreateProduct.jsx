@@ -13,6 +13,7 @@ import {
   deleteProduct,
   editProduct,
 } from "../../redux/slices/productSlices";
+import { getPost } from "../../api";
 
 export default function CreateProduct() {
   const [productName, setProductName] = useState("");
@@ -28,6 +29,8 @@ export default function CreateProduct() {
   const productPriceRegex = /^[0-9]+(\.[0-9]{1,2})?$/;
   const [imageError, setImageError] = useState("");
   const [edit, setEdit] = useState("");
+  const [posts, setPosts] = useState([]);
+  console.log(posts);
   const data = useSelector((state) => state.products);
   console.log(data);
   const dispatch = useDispatch();
@@ -127,6 +130,18 @@ export default function CreateProduct() {
       alert("Please fix the errors before submitting.");
     }
   };
+
+  //fetch data API
+  useEffect(() => {
+    getPost()
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setPosts(data);
+      })
+      .catch((error) => console.log("error =>", error));
+  }, []);
 
   useEffect(() => {
     const storedProductData = JSON.parse(localStorage.getItem("productData"));
@@ -300,7 +315,7 @@ export default function CreateProduct() {
                       </div>
                       <div className="mb-2">
                         <label
-                          for="exampleFormControlTextarea1"
+                          htmlFor="exampleFormControlTextarea1"
                           className="form-label">
                           Additional Description
                         </label>
@@ -362,9 +377,9 @@ export default function CreateProduct() {
             </tr>
           </thead>
           <tbody>
-            {data.map((product, index) =>
+            {posts.map((product, index) =>
               product.id === edit ? (
-                <tr>
+                <tr key={product.id}>
                   <th scope="row">
                     <Link to={`/Detail/${product.id}`}>{product.id}</Link>
                   </th>
@@ -422,7 +437,7 @@ export default function CreateProduct() {
                       </button>
                       <button
                         type="button"
-                        class="btn btn-danger"
+                        className="btn btn-danger"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
                         onClick={() => setDeleteItemId(product.id)}>
@@ -436,37 +451,37 @@ export default function CreateProduct() {
           </tbody>
         </table>
         <div
-          class="modal fade"
+          className="modal fade"
           id="exampleModal"
-          tabindex="-1"
+          tabIndex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">
                   Delete Product
                 </h1>
                 <button
                   type="button"
-                  class="btn-close"
+                  className="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"></button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 Apakah Anda yakin ingin menghapus produk ini?
               </div>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  className="btn btn-secondary"
                   data-bs-dismiss="modal">
                   Close
                 </button>
                 <button
                   onClick={() => handleDelete(deleteItemId)}
                   type="button"
-                  class="btn btn-danger"
+                  className="btn btn-danger"
                   data-bs-dismiss="modal">
                   Delete
                 </button>
@@ -486,10 +501,7 @@ export default function CreateProduct() {
           className="btn-group"
           role="group"
           aria-label="Basic outlined example">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick="hapusBaris(this)">
+          <button type="button" className="btn btn-primary">
             Delection
           </button>
           <button type="button" className="btn btn-outline-primary">
