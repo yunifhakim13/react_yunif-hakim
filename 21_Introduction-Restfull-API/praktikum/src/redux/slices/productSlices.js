@@ -1,17 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
-const products = [
-  {
-    id: "e7ce2b97-d0c1-4a75-9c1d-e6dfc8441836",
-    productName: "John",
-    productCategory: "Doe",
-    productFreshness: "Doe",
-    productPrice: "234",
-    image: "Doe",
-    additionalDescription: "Doe",
-  },
-];
+const products = [];
 
 export const productSlices = createSlice({
   name: "Product",
