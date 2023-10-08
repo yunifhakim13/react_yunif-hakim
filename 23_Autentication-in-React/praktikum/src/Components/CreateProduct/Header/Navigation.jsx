@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Navigation = () => {
   return (
     <nav class="navbar navbar-expand-lg shadow fixed-top">
@@ -23,6 +25,11 @@ const Navigation = () => {
               </a>
             </li>
             <li class="nav-item">
+              <Link to="../Login" class="nav-link active">
+                Login
+              </Link>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="#">
                 Features
               </a>
@@ -40,11 +47,6 @@ const Navigation = () => {
             <li class="nav-item">
               <a class="nav-link" href="#">
                 About
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Login
               </a>
             </li>
           </ul>
