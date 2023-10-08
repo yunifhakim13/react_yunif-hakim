@@ -14,6 +14,7 @@ import {
   editProduct,
 } from "../../redux/slices/productSlices";
 import { getPost } from "../../api";
+import axios from "axios";
 
 export default function CreateProduct() {
   const [productName, setProductName] = useState("");
@@ -133,14 +134,12 @@ export default function CreateProduct() {
 
   //fetch data API
   useEffect(() => {
-    getPost()
+    axios
+      .get("https://65202116906e276284c4124c.mockapi.io/api/products/List")
       .then((response) => {
-        return response.json();
+        setPosts(response.data);
       })
-      .then((data) => {
-        setPosts(data);
-      })
-      .catch((error) => console.log("error =>", error));
+      .catch((error) => console.error("error =>", error));
   }, []);
 
   useEffect(() => {

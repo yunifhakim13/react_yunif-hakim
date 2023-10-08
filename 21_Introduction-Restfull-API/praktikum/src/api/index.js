@@ -1,9 +1,9 @@
 import axios from "axios";
+
 const url = "https://65202116906e276284c4124c.mockapi.io/api/products";
 
 export const getPost = () => {
-  return fetch(`${url}/List`, {
-    method: "GET",
+  return axios.get(`${url}/List`, {
     headers: {
       "Content-type": "application/json",
     },
@@ -11,8 +11,7 @@ export const getPost = () => {
 };
 
 export const getPostWithId = (id) => {
-  return fetch(`${url}/List/${id}`, {
-    method: "GET",
+  return axios.get(`${url}/List/${id}`, {
     headers: {
       "Content-type": "application/json",
     },
@@ -20,11 +19,9 @@ export const getPostWithId = (id) => {
 };
 
 export const sendPostData = (data) => {
-  return fetch(`${url}/List/${data.id}`, {
-    method: "POST",
+  return axios.post(`${url}/List/${data.id}`, data, {
     headers: {
       "Content-type": "application/json",
     },
-    body: JSON.stringify(data),
   });
 };
