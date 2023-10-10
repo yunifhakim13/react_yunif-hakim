@@ -1,0 +1,207 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
+
+.navbar {
+  background-color: #4593ff;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.space {
+  margin-left: 400px;
+}
+
+.nav-link {
+  color: #fff;
+  margin-left: 70px;
+}
+
+#login {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+}
+
+#signin {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  background-color: #fff;
+  border: none;
+  color: #4593ff;
+}
+
+.heroleft {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #3b4053;
+  width: 371px;
+}
+
+.paragraph {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #3b4053;
+  width: 583px;
+}
+
+.heroleft_btn {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  background-color: #4593ff;
+  border: none;
+  color: #fff;
+  padding: 15px 13px;
+}
+
+.card {
+  background-color: #f8fbff;
+  border: none;
+  width: 400px;
+  height: 350px;
+}
+
+.card-body {
+  padding: 0px 37px;
+}
+
+#card-title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  padding-top: 50px;
+}
+
+.card-text {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  width: 327px;
+  height: 154px;
+  padding: 30px 0px;
+  margin-top: 30px;
+}
+
+.card_btn {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  background-color: #4593ff;
+  border: none;
+  color: #fff;
+  padding: 10px 10px;
+  margin-bottom: 24px;
+}
+
+#cardCrs {
+  flex-direction: row;
+  max-width: 427px;
+  max-height: 190px;
+}
+
+#cardCrs img {
+  max-width: 110px;
+  margin: auto;
+  padding: 40px 0px;
+  margin-left: 36px;
+}
+
+#titleCrs {
+  max-width: 204px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: #3b4053;
+}
+
+#parentsCrs {
+  margin-top: 70px;
+  margin-bottom: 95px;
+}
+
+.btn-dark {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: #3b4053;
+}
+
+.bgfooter {
+  background-color: #f8fbff;
+  /* height: 214px; */
+  width: 100%;
+  padding: 50px 0;
+}
+
+.textFooter {
+  /* margin-left: 80px; */
+  text-align: left;
+  font-family: "Montserrat", sans-serif;
+}
+
+.textFooter h1 {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.textFooter a {
+  font-weight: 500;
+  font-size: 10px;
+  text-decoration: none;
+  color: #000;
+  margin-bottom: 10px;
+}
+.textFooter p {
+  font-weight: 500;
+  font-size: 10px;
+  text-decoration: none;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.contactBtn {
+  color: #fff;
+  background-color: #4593ff;
+}
+
+.validationTextarea {
+  width: 120px;
+  height: 40px;
+}
+
+.text__logo {
+  color: #4593ff;
+  font-weight: bold;
+}
+
+.text__logo-span {
+  opacity: 60%;
+  font-weight: 300;
+}
+
+.img__logo {
+  margin-bottom: 1rem;
+}
+
+.input__form {
+  font-size: 13px;
+}
+
+.gap__flex {
+  gap: 40px;
+}
+
+.max__width {
+  max-width: 60%;
+}
+
+.img__logo-sosmed {
+  width: 28px;
+  height: 28px;
+}
