@@ -1,5 +1,5 @@
 ---
-title: "Summary Basic Model OpenAI dan Prompt Engineer"
+## Summary Basic Model OpenAI dan Prompt Engineer
 ---
 
 ## Apa itu model OpenAI?
